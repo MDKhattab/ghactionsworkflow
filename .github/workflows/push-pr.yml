@@ -1,4 +1,4 @@
-name: push and pull requist 
+name: push and pull request 
 on: 
     push:
         branches:
