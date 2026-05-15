@@ -1,0 +1,19 @@
+name: manual trigger
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Select environment"
+                required: true
+                default: "staging"
+                type: choice
+                options:
+                    - production
+                    - staging
+
+jobs:
+    display:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, manual trigger"
