@@ -1,0 +1,10 @@
+name: API call trigger
+on:
+    repository_dispatch:
+        types: [ api-call-trigger ]
+jobs:
+    display:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, API call trigger"
