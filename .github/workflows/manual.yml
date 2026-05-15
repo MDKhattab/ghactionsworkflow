@@ -16,4 +16,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: print with echo
-              run: echo "hello, manual trigger"
+              run: echo "hello, manual trigger on ${{ inputs.environment }} environment"
