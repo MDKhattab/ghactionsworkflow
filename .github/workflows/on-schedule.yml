@@ -1,0 +1,10 @@
+name: on schedule trigger
+on:
+    schedule:
+        - cron: "0 9 1 * *"
+jobs:
+    display:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, on schedule trigger"
