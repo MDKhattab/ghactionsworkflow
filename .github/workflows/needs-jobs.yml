@@ -1,0 +1,31 @@
+name: job depend on another job
+on:
+    workflow_dispatch:
+
+jobs:
+    first_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, ${{ github.job }}"
+
+    second_job:
+        needs: first_job
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, ${{ github.job }}"
+
+    third_job:
+        needs: first_job
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, ${{ github.job }}"
+
+    fourth_job:
+        needs: [ second_job, third_job ]
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, ${{ github.job }}"

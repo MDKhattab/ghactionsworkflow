@@ -1,0 +1,34 @@
+name: Hybrid jobs in github actions 
+on:
+    workflow_dispatch:
+
+jobs:
+    hybrid_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with hello
+              run: echo "hello, hybrid jobs in github actions in Ubuntu-VM"
+
+        # part of the job will run in a docker container and the other part will run in the ubuntu-VM
+        # docker image must be in public registry or you can use private image with credentials
+            - name: print in Alpine container
+              uses: docker://alpine:latest
+              with:
+                entrypoint: echo
+                args: "hello, hybrid jobs in github actions in Alpine container"
+
+            - name: print in ubuntu-VM again
+              run: echo "hello, hybrid jobs in github actions in Ubuntu-VM again"
+
+              
+    docker_job:
+        runs-on: ubuntu-latest 
+        # we use a private image in docker hub, so we need to provide credentials to access it
+        container:
+            image: mokhattab/ubuntu:latest  # this is a private image in docker hub
+            credentials:
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_PASSWORD }}
+        steps:
+            - name: print in ubuntu container
+              run: echo "hello, hybrid jobs in github actions in ubuntu container with docker with private image"
