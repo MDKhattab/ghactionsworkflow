@@ -1,0 +1,28 @@
+name: annotations in github actions
+on:
+    workflow_dispatch:
+
+jobs:
+    annotations_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, annotations in github actions"
+
+            - name: check existing file
+              run: |
+                  if [ -f "file.txt" ]; then
+                  echo "::notice::file.txt already exists!"
+                  else
+                  echo "::error::file.txt does not exist!"
+                  echo "::warning::file.txt already exists!"
+                  fi
+
+            - name: print warning annotation
+              run: echo "::warning::This is a warning annotation"
+
+            - name: print error annotation
+              run: echo "::error::This is an error annotation"
+
+            - name: print notice annotation
+              run: echo "::notice::This is a notice annotation"
