@@ -1,0 +1,16 @@
+name: add mask to variables in workflow 
+on:
+    workflow_dispatch:
+
+jobs:
+    add_mask_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print with echo
+              run: echo "hello, add mask to variables in workflow"
+
+            - name: Show unmasked value
+              run: echo "The unmasked value is ${{ secrets.MY_SECRET_VALUE }}"
+
+            - name: Show masked value
+              run: echo "The masked value is ${{ secrets.MY_SECRET_VALUE }}" | sed 's/./*/g'
