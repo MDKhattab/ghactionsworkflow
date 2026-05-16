@@ -1,0 +1,23 @@
+name: use the output of one step in another step in github actions
+on:
+    workflow_dispatch:
+    
+jobs:
+    output_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: set output of step 1
+              id: step1
+              run: echo "name=John Doe" >> $GITHUB_OUTPUT
+
+            - name: use output of step 1 in step 2
+              run: echo "The name from step 1 is ${{ steps.step1.outputs.name }}"
+
+    output_job2:
+        runs-on: ubuntu-latest
+        steps:
+            - name: set API key 
+              run: echo "API_KEY=1234567890" >> $GITHUB_ENV
+            
+            - name: use API key in another step
+              run: echo "The API key from environment variable is $API_KEY"
