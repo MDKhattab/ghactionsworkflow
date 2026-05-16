@@ -17,7 +17,7 @@ jobs:
           echo "🟢 Started cancel-true at $(date)"
           echo "⏳ Doing 5 steps (9s each)..."
           for i in 1 2 3 4 5; do
-            sleep 9
+            sleep 1
             echo "  ✅ Step $i completed"
           done
           echo "🏁 Finished cancel-true!"
@@ -34,7 +34,7 @@ jobs:
           echo "🔵 Started queue-false at $(date)"
           echo "⏳ Will wait in queue if another run is active..."
           for i in 1 2 3 4 5; do
-            sleep 9
+            sleep 1
             echo "  ✅ Step $i completed"
           done
           echo "🏁 Finished queue-false!"
