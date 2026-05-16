@@ -30,8 +30,13 @@ jobs:
               run: echo "this will print if the event that triggered this workflow is pull_request"
 
             - name: print if github event is schedule
+              id: check_schedule_event
               if: ${{ github.event_name == 'schedule' }}
               run: echo "this will print if the event that triggered this workflow is schedule"
+
+            - name: print if previous step was skipped
+              if: ${{ steps.check_schedule_event.outcome == 'skipped' }}
+              run: echo "this will print if the previous step was skipped"
 
             - name: print if github event if the previous step was successful
               if: ${{ success() }}
@@ -40,3 +45,11 @@ jobs:
             - name: print if github event if the previous step failed
               if: ${{ failure() }}
               run: echo "this will print if the previous step failed"
+
+            - name: print if github event if the previous step was cancelled
+              if: ${{ cancelled() }}
+              run: echo "this will print if the previous step was cancelled"
+    
+            - name: print always regardless of the previous step outcome
+              if: ${{ always() }}
+              run: echo "this will print always regardless of the previous step outcome"
