@@ -1,4 +1,4 @@
-name: add mask to variables in workflow 
+name: add mask to variables in workflow
 on:
     workflow_dispatch:
 
@@ -6,11 +6,10 @@ jobs:
     add_mask_job:
         runs-on: ubuntu-latest
         steps:
-            - name: print with echo
-              run: echo "hello, add mask to variables in workflow"
+            - name: set API_KEY
+              run: echo "API_KEY=123456" >> $GITHUB_ENV
 
-            - name: Show unmasked value
-              run: echo "The unmasked value is ${{ secrets.MY_SECRET_VALUE }}"
-
-            - name: Show masked value
-              run: echo "The masked value is ${{ secrets.MY_SECRET_VALUE }}" | sed 's/./*/g'
+            - name: print API_KEY with mask
+              run: |
+                  echo "::add-mask::$API_KEY"
+                  echo "The API key is $API_KEY"
