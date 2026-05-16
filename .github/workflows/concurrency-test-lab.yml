@@ -1,8 +1,9 @@
 name: 🔬 Concurrency Test Lab
 
 on:
-  push:
-    branches: ["**"]
+    workflow_dispatch:
+  #push:
+    #branches: ["**"]
 
 jobs:
   # 🟢 SCENARIO 1: cancel-in-progress: true (Auto-cancels outdated runs)
@@ -50,5 +51,5 @@ jobs:
         run: |
           echo "🟡 Started static group at $(date)"
           echo "⚠️ This shares a group with EVERY branch in this repo!"
-          sleep 40
+          sleep 7
           echo "🏁 Finished static group!"
