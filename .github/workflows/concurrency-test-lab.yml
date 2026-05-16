@@ -1,0 +1,54 @@
+name: 🔬 Concurrency Test Lab
+
+on:
+  push:
+    branches: ["**"]
+
+jobs:
+  # 🟢 SCENARIO 1: cancel-in-progress: true (Auto-cancels outdated runs)
+  test-cancel-true:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ci-cancel-${{ github.ref_name }}
+      cancel-in-progress: true
+    steps:
+      - name: Simulate CI Work
+        run: |
+          echo "🟢 Started cancel-true at $(date)"
+          echo "⏳ Doing 5 steps (9s each)..."
+          for i in 1 2 3 4 5; do
+            sleep 9
+            echo "  ✅ Step $i completed"
+          done
+          echo "🏁 Finished cancel-true!"
+
+  # 🔵 SCENARIO 2: cancel-in-progress: false (Queues instead of cancels)
+  test-queue-false:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-queue-${{ github.ref_name }}
+      cancel-in-progress: false
+    steps:
+      - name: Simulate Safe Deploy
+        run: |
+          echo "🔵 Started queue-false at $(date)"
+          echo "⏳ Will wait in queue if another run is active..."
+          for i in 1 2 3 4 5; do
+            sleep 9
+            echo "  ✅ Step $i completed"
+          done
+          echo "🏁 Finished queue-false!"
+
+  # 🟡 SCENARIO 3: Static Group (Bad Practice Demo)
+  test-static-group:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: static-danger-group  # ⚠️ Same name across ALL branches!
+      cancel-in-progress: true
+    steps:
+      - name: Simulate Cross-Branch Conflict
+        run: |
+          echo "🟡 Started static group at $(date)"
+          echo "⚠️ This shares a group with EVERY branch in this repo!"
+          sleep 40
+          echo "🏁 Finished static group!"
