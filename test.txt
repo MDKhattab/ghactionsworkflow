@@ -1,12 +1,7 @@
+echo "run1" >> test.txt && git add test.txt && git commit -m "test1" && git push
+sleep 5                                                                  
+echo "run2" >> test.txt && git add test.txt && git commit -m "test2" && git push
+sleep 5                                                                         
+echo "run3" >> test.txt && git add test.txt && git commit -m "test3" && git push
+
 run1
-run2
-run3
-run1
-run2
-run3
-run1
-run2
-run3
-run1
-run2
-run3
