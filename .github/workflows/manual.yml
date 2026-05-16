@@ -2,14 +2,35 @@ name: manual trigger
 on:
     workflow_dispatch:
         inputs:
-            environment:
-                description: "Select environment"
+            #environment:
+            #    description: "Select environment"
+            #    required: true
+            #    default: "staging"
+            #    type: choice
+            #    options:
+            #        - production
+            #        - staging
+            logLevel:
+                description: 'Log level'
                 required: true
-                default: "staging"
+                default: 'warning'
                 type: choice
                 options:
-                    - production
-                    - staging
+                  - info
+                  - warning
+                  - debug
+            print_tags:
+                description: 'True to print to STDOUT'
+                required: true
+                type: boolean
+            tags:
+                description: 'Test scenario tags'
+                required: true
+                type: string
+            environment:
+                description: 'Environment to run tests against'
+                type: environment
+                required: true
 
 jobs:
     display:
