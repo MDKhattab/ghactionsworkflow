@@ -2,14 +2,15 @@ name: manual trigger
 on:
     workflow_dispatch:
         inputs:
-            #environment:
-            #    description: "Select environment"
-            #    required: true
-            #    default: "staging"
-            #    type: choice
-            #    options:
-            #        - production
-            #        - staging
+            env:
+                description: "Select environment"
+                required: true
+                default: "staging"
+                type: choice
+                options:
+                    - production
+                    - staging
+                    - development
             logLevel:
                 description: 'Log level'
                 required: true
@@ -27,6 +28,8 @@ on:
                 description: 'Test scenario tags'
                 required: true
                 type: string
+#you’ll need to create environments in your repository settings (Settings → Environments → New environment).
+#That’s where you define names, secrets, and rules. Once they exist, they’ll appear in that dropdown automatically.
             environment:
                 description: 'Environment to run tests against'
                 type: environment
@@ -43,3 +46,10 @@ jobs:
         steps:
             - name: print with echo
               run: echo "hello, manual trigger on ${{ inputs.environment }} environment"
+            
+            - name: Show selected environment
+              run: echo "Running against ${{ github.event.inputs.environment }}" 
+
+            - name: Show log level
+              run: echo "Selected log level  ${{ github.event.inputs.logLevel }}"
+              
