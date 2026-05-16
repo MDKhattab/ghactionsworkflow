@@ -33,4 +33,10 @@ jobs:
               if: ${{ github.event_name == 'schedule' }}
               run: echo "this will print if the event that triggered this workflow is schedule"
 
-              
+            - name: print if github event if the previous step was successful
+              if: ${{ success() }}
+              run: echo "this will print if the previous step was successful"
+
+            - name: print if github event if the previous step failed
+              if: ${{ failure() }}
+              run: echo "this will print if the previous step failed"
