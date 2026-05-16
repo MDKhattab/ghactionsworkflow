@@ -1,0 +1,36 @@
+name: use condition in github actions
+on: 
+    workflow_dispatch:
+
+jobs:
+    condition_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: print hello
+              run: echo "hello, condition in github actions"
+
+            - name: print if condition is true
+              if: ${{ true }}
+              run: echo "this will always print because the condition is true"
+
+            - name: print if condition is false
+              if: ${{ false }}
+              run: echo "this will print because the condition is false"
+
+            - name: print if github event is workflow_dispatch
+              if: ${{ github.event_name == 'workflow_dispatch' }}
+              run: echo "this will print because the event that triggered this workflow is workflow_dispatch"
+
+            - name: print if github event is push
+              if: ${{ github.event_name == 'push' }}
+              run: echo "this will print if the event that triggered this workflow is push"
+
+            - name: print if github event is pull_request
+              if: ${{ github.event_name == 'pull_request' }}
+              run: echo "this will print if the event that triggered this workflow is pull_request"
+
+            - name: print if github event is schedule
+              if: ${{ github.event_name == 'schedule' }}
+              run: echo "this will print if the event that triggered this workflow is schedule"
+
+              
