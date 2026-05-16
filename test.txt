@@ -6,3 +6,4 @@ echo "run3" >> test.txt && git add test.txt && git commit -m "test3" && git push
 
 run1
 run2
+run3
